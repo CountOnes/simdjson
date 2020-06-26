@@ -135,11 +135,6 @@ jobs:
     description: Build and run tests on GCC 7 and AVX 2 with a cmake static build
     executor: gcc7
     environment: { CMAKE_FLAGS: -DSIMDJSON_GOOGLE_BENCHMARKS=ON -DSIMDJSON_BUILD_STATIC=ON }
-  gcc7_32bits:
-    description: Build and run tests on GCC 7 (32-bit) with a cmake static build
-    executor: gcc7_32bits
-    environment: { CMAKE_FLAGS: -DSIMDJSON_GOOGLE_BENCHMARKS=ON -DSIMDJSON_BUILD_STATIC=ON }
-    steps: [ install_cmake, cmake_test, cmake_install_test ]
   justlib-gcc10:
     description: Build just the library, install it and do a basic test
     executor: gcc10
@@ -148,11 +143,6 @@ jobs:
   gcc10:
     description: Build and run tests on GCC 10 and AVX 2 with a cmake static build, this test performance regression
     executor: gcc10
-    environment: { CMAKE_FLAGS: -DSIMDJSON_GOOGLE_BENCHMARKS=ON -DSIMDJSON_BUILD_STATIC=ON }
-    steps: [ cmake_test_all, cmake_install_test ]
-  gcc10_32bits:
-    description: Build and run tests on GCC 10 (32-bit) with a cmake static build
-    executor: gcc10_32bits
     environment: { CMAKE_FLAGS: -DSIMDJSON_GOOGLE_BENCHMARKS=ON -DSIMDJSON_BUILD_STATIC=ON }
     steps: [ cmake_test_all, cmake_install_test ]
   clang6:
