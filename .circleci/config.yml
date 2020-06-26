@@ -11,12 +11,30 @@ executors:
           BUILD_FLAGS: -j
           CTEST_FLAGS: -j4 --output-on-failure
 
+  gcc7_32bits:
+    docker:
+      - image: gcc:7
+        environment:
+          CXX: g++ -m32
+          CC: gcc -m32
+          BUILD_FLAGS: -j
+          CTEST_FLAGS: -j4 --output-on-failure
+
   gcc8:
     docker:
       - image: conanio/gcc8
         environment:
           CXX: g++-8
           CC: gcc-8
+          BUILD_FLAGS: -j
+          CTEST_FLAGS: -j4 --output-on-failure
+
+  gcc8_32bits:
+    docker:
+      - image: conanio/gcc8
+        environment:
+          CXX: g++-8 -m32
+          CC: gcc-8 -m32
           BUILD_FLAGS: -j
           CTEST_FLAGS: -j4 --output-on-failure
 
@@ -29,12 +47,30 @@ executors:
           BUILD_FLAGS: -j
           CTEST_FLAGS: -j4 --output-on-failure
 
+  gcc9_32bits:
+    docker:
+      - image: conanio/gcc9
+        environment:
+          CXX: g++-9 -m32
+          CC: gcc-9 -m32
+          BUILD_FLAGS: -j
+          CTEST_FLAGS: -j4 --output-on-failure
+
   gcc10:
     docker:
       - image: conanio/gcc10
         environment:
           CXX: g++-10
           CC: gcc-10
+          BUILD_FLAGS: -j
+          CTEST_FLAGS: -j4 --output-on-failure
+
+  gcc10_32bits:
+    docker:
+      - image: conanio/gcc10
+        environment:
+          CXX: g++-10 -m32
+          CC: gcc-10 -m32
           BUILD_FLAGS: -j
           CTEST_FLAGS: -j4 --output-on-failure
 
