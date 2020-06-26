@@ -29,30 +29,12 @@ executors:
           BUILD_FLAGS: -j
           CTEST_FLAGS: -j4 --output-on-failure
 
-  gcc8_32bits:
-    docker:
-      - image: conanio/gcc8
-        environment:
-          CXX: g++-8 -m32
-          CC: gcc-8 -m32
-          BUILD_FLAGS: -j
-          CTEST_FLAGS: -j4 --output-on-failure
-
   gcc9:
     docker:
       - image: conanio/gcc9
         environment:
           CXX: g++-9
           CC: gcc-9
-          BUILD_FLAGS: -j
-          CTEST_FLAGS: -j4 --output-on-failure
-
-  gcc9_32bits:
-    docker:
-      - image: conanio/gcc9
-        environment:
-          CXX: g++-9 -m32
-          CC: gcc-9 -m32
           BUILD_FLAGS: -j
           CTEST_FLAGS: -j4 --output-on-failure
 
@@ -153,6 +135,10 @@ jobs:
     description: Build and run tests on GCC 7 and AVX 2 with a cmake static build
     executor: gcc7
     environment: { CMAKE_FLAGS: -DSIMDJSON_GOOGLE_BENCHMARKS=ON -DSIMDJSON_BUILD_STATIC=ON }
+  gcc7_32bits:
+    description: Build and run tests on GCC 7 (32-bit) with a cmake static build
+    executor: gcc7_32bits
+    environment: { CMAKE_FLAGS: -DSIMDJSON_GOOGLE_BENCHMARKS=ON -DSIMDJSON_BUILD_STATIC=ON }
     steps: [ install_cmake, cmake_test, cmake_install_test ]
   justlib-gcc10:
     description: Build just the library, install it and do a basic test
@@ -162,6 +148,11 @@ jobs:
   gcc10:
     description: Build and run tests on GCC 10 and AVX 2 with a cmake static build, this test performance regression
     executor: gcc10
+    environment: { CMAKE_FLAGS: -DSIMDJSON_GOOGLE_BENCHMARKS=ON -DSIMDJSON_BUILD_STATIC=ON }
+    steps: [ cmake_test_all, cmake_install_test ]
+  gcc10_32bits:
+    description: Build and run tests on GCC 10 (32-bit) with a cmake static build
+    executor: gcc10_32bits
     environment: { CMAKE_FLAGS: -DSIMDJSON_GOOGLE_BENCHMARKS=ON -DSIMDJSON_BUILD_STATIC=ON }
     steps: [ cmake_test_all, cmake_install_test ]
   clang6:
@@ -255,7 +246,9 @@ workflows:
     jobs:
       # full multi-implementation tests
       - gcc7
+      - gcc7_32bits
       - gcc10 # do not delete this as it tests our performance
+      - gcc10_32bits
       - clang6
       #- clang10 # this gets tested a lot below
 
